@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% comment %} {% block extrahead %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
+{% endblock %}} {% endcomment %}
+
+{% block content %}
+<div class="page-title">予約確定</div>
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    {% if forloop.counter <= 4 %}
+    <div class="input-group.date">
+    <div class="field">
+        <div class="field-label">{{ field.label }}</div>
+        <div class="reserve">
+            {{ field }}
+            {{ field.errors }}
+        </div>
+    </div>
+    </div>
+    <br>
+    {% endif %}
+    {% endfor %}
+    <div class="field-category">
+        <label for="id_category">空き部屋リスト</label>
+    </div>
+    <div class="box">
+        <select name="category" class="form-control" required id="id_category">
+            {% for item in category %}
+                <option value='{{ item }}'>{{ item }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <a href="{% url 'result' %}"><input type='submit' class="btn btn-success" value='予約'></a>
+    <a href="{% url 'update2' %}" class="btn btn-danger">戻る</a>
+</form>
+{% endblock content %}
+{% block js %}
+    {% load static %}
+    <script src="/static/js/reserve.js"></script>
+{% comment %} 
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+    <script src="{% static '/js/app.js' %}"></script> {% endcomment %}
+
+{% endblock js %}

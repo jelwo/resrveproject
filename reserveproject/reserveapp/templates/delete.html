@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <p>このテーブルを削除しますか？</p>
+    <table>
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <th>開始日時</th>
+                <th>終了日時</th>
+                <th>開始時間</th>
+                <th>終了時間</th>
+                <th>部屋</th>
+            </tr>
+            <tr>
+                <td>{{ object.id }}</td>
+                <td>{{ object.checkin }}</td>
+                <td>{{ object.checkout }}</td>
+                <td>{{ object.time1 }}</td>
+                <td>{{ object.time2 }}</td>
+                <td>{{ object.category }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <input class="btn btn-danger" type="submit" value="削除する">
+    <a href="{% url 'index' %}" class="btn btn-primary">戻る</a>
+</form>
+{% endblock content %}
